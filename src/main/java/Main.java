@@ -374,8 +374,8 @@ public class Main {
         Main test = new Main();
 
         boolean existed = test.createDirIfNotExisted(STATIC_DIR + MConstants.COOKIE_FILE_NAME);
-        if (args.length < 2){
-            System.out.println("请输入账号【空格】密码");
+        if (args.length < 4){
+            System.out.println("请输入账号【空格】密码【空格】youtube列表【空格】网易云歌单");
             System.exit(0);
         }
 
@@ -385,7 +385,7 @@ public class Main {
         }
 
         //获取Youtube表单信息  author#=>song
-        Map<String, String> youtubeMusic = test.getAllYoutubePlayList(YOUTUBE_LIST);
+        Map<String, String> youtubeMusic = test.getAllYoutubePlayList(args[2]);
         List<Integer> foundTrackList = new ArrayList<>();
         for (Map.Entry<String, String> authorSong : youtubeMusic.entrySet()) {
             String author = authorSong.getKey();
@@ -397,7 +397,7 @@ public class Main {
         }
 
         String idStr = test.getFileContent(STATIC_DIR, MConstants.USER_INFO_FILE_NAME);
-        Long playlistId = test.getPlaylistId(idStr, MUSIC_LIST);
+        Long playlistId = test.getPlaylistId(idStr, args[3]);
         List<Integer> hadTrackIds = test.getPlaylistTrackIds(String.valueOf(playlistId));
 
         List<Integer> shouldRemove = new ArrayList<>();
